@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/api/v1/products")
 @RequiredArgsConstructor
 @Validated
 @Tag(name = "Cosmic products manager")
@@ -106,10 +106,6 @@ public class ProductController {
             @ApiResponse(
                     responseCode = "204",
                     description = "Product deleted"
-            ),
-            @ApiResponse(
-                    responseCode = "404",
-                    description = "Product not found"
             )
     })
     @DeleteMapping("/{id}")

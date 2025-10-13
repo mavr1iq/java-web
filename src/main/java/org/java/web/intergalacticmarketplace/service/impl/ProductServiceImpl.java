@@ -66,11 +66,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public boolean deleteProduct(int id) {
-        if (!products.containsKey(id)) {
-            throw new ProductNotFoundException(id);
-        }
+    public void deleteProduct(int id) {
         products.remove(id);
-        return true;
     }
 }
