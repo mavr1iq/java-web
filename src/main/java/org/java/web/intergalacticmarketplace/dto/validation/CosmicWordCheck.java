@@ -1,4 +1,5 @@
 package org.java.web.intergalacticmarketplace.dto.validation;
+
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 import java.lang.annotation.*;
@@ -7,7 +8,9 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = CosmicWordValidator.class)
 public @interface CosmicWordCheck {
-    String message() default "Product name must contain a cosmic word)";
-    Class<?>[] groups() default {};
-    Class<? extends Payload>[] payload() default {};
+  String message() default "Product name must contain a cosmic word)";
+
+  Class<?>[] groups() default {};
+
+  Class<? extends Payload>[] payload() default {};
 }

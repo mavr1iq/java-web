@@ -6,6 +6,6 @@ import java.util.List;
 
 @Value
 public class Order {
-    int id;
-    List<Product> products;
+  int id;
+  List<Product> products;
 }

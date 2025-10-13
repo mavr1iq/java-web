@@ -6,8 +6,8 @@ import lombok.Value;
 @Value
 @AllArgsConstructor
 public class ProductDTO {
-    int id;
-    String name;
-    double price;
-    String description;
+  int id;
+  String name;
+  double price;
+  String description;
 }

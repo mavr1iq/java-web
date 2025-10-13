@@ -4,6 +4,6 @@ import lombok.Value;
 
 @Value
 public class Category {
-    int id;
-    String name;
+  int id;
+  String name;
 }
