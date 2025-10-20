@@ -6,6 +6,6 @@ import java.util.List;
 
 @Value
 public class Cart {
-  int id;
+  Long id;
   List<Product> items;
 }

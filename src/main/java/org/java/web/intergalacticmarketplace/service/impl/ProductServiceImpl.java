@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
   private final ProductMapper productMapper;
-  private final Map<Integer, Product> products = new ConcurrentHashMap<>();
+  private final Map<Long, Product> products = new ConcurrentHashMap<>();
   private final AtomicLong id = new AtomicLong(0);
 
   @PostConstruct
@@ -36,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
-  public ProductDTO getProductById(int id) {
+  public ProductDTO getProductById(Long id) {
     if (!products.containsKey(id)) {
       throw new ProductNotFoundException(id);
     }
@@ -46,13 +46,13 @@ public class ProductServiceImpl implements ProductService {
   @Override
   public ProductDTO createProduct(ProductRequestDTO requestDTO) {
     Product newProduct = productMapper.toProductEntity(requestDTO);
-    newProduct.setId((int) id.incrementAndGet());
+    newProduct.setId(id.incrementAndGet());
     products.put(newProduct.getId(), newProduct);
     return productMapper.toProductDTO(newProduct);
   }
 
   @Override
-  public ProductDTO updateProduct(int id, ProductRequestDTO requestDTO) {
+  public ProductDTO updateProduct(Long id, ProductRequestDTO requestDTO) {
     Product product = products.get(id);
     if (!products.containsKey(id)) {
       throw new ProductNotFoundException(id);
@@ -67,7 +67,7 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
-  public void deleteProduct(int id) {
+  public void deleteProduct(Long id) {
     products.remove(id);
   }
 }

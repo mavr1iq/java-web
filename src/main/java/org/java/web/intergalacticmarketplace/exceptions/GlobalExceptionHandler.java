@@ -25,13 +25,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
       WebRequest request) {
     FieldError fieldError = ex.getBindingResult().getFieldError();
 
-    String errorMessage =
-        "Validation failed for object: "
-            + fieldError.getObjectName()
-            + ". Field: "
-            + fieldError.getField()
-            + " - "
-            + fieldError.getDefaultMessage();
+    String errorMessage = String.format("Validation failed for object: %s. Field: %s - %s",
+            fieldError.getObjectName(),
+            fieldError.getField(),
+            fieldError.getDefaultMessage());
 
     ProblemDetail problemDetail = forStatusAndDetail(BAD_REQUEST, errorMessage);
     problemDetail.setType(URI.create(request.getContextPath()));

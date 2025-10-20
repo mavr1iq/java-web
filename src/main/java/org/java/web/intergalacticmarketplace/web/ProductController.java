@@ -41,7 +41,7 @@ public class ProductController {
       })
   @GetMapping("/{id}")
   public ResponseEntity<ProductDTO> getProductById(
-      @Parameter(description = "ID of product") @PathVariable int id) {
+      @Parameter(description = "ID of product") @PathVariable Long id) {
     return ResponseEntity.ok(productService.getProductById(id));
   }
 
@@ -65,7 +65,7 @@ public class ProductController {
       })
   @PutMapping("/{id}")
   public ResponseEntity<ProductDTO> updateProduct(
-      @Parameter(description = "ID of product") @PathVariable int id,
+      @Parameter(description = "ID of product") @PathVariable Long id,
       @Valid @RequestBody ProductRequestDTO requestDTO) {
     return ResponseEntity.ok(productService.updateProduct(id, requestDTO));
   }
@@ -74,7 +74,7 @@ public class ProductController {
   @ApiResponses(value = {@ApiResponse(responseCode = "204", description = "Product deleted")})
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> deleteProduct(
-      @Parameter(description = "ID of product") @PathVariable int id) {
+      @Parameter(description = "ID of product") @PathVariable Long id) {
     productService.deleteProduct(id);
     return ResponseEntity.noContent().build();
   }
