@@ -7,13 +7,13 @@ import org.java.web.intergalacticmarketplace.dto.product.ProductRequestDTO;
 import java.util.List;
 
 public interface ProductService {
-  List<ProductDTO> getProducts();
+  List<Product> getProducts();
 
-  ProductDTO getProductById(Long id);
+  Product getProductById(Long id);
 
-  ProductDTO createProduct(ProductRequestDTO requestDTO);
+  Product createProduct(Product product);
 
-  ProductDTO updateProduct(Long id, ProductRequestDTO requestDTO);
+  Product updateProduct(Long id, Product product);
 
   void deleteProduct(Long id);
 }

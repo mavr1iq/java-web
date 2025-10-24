@@ -4,8 +4,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.*;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -14,7 +14,7 @@ import java.net.URI;
 import static org.springframework.http.ProblemDetail.forStatusAndDetail;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
   @Override
@@ -30,8 +30,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             fieldError.getField(),
             fieldError.getDefaultMessage());
 
+
     ProblemDetail problemDetail = forStatusAndDetail(BAD_REQUEST, errorMessage);
-    problemDetail.setType(URI.create(request.getContextPath()));
+    problemDetail.setType(URI.create("/errors/validation-error"));
     problemDetail.setTitle("Validation Error");
 
     return ResponseEntity.status(BAD_REQUEST).body(problemDetail);
@@ -42,7 +43,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
       ProductNotFoundException ex, HttpServletRequest request) {
     ProblemDetail problemDetail =
         ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
-    problemDetail.setType(URI.create(request.getContextPath()));
+    problemDetail.setType(URI.create("/errors/product-not-found"));
     problemDetail.setTitle("Product Not Found");
 
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(problemDetail);

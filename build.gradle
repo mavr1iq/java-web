@@ -15,8 +15,9 @@ java {
 }
 
 ext {
-    minimumCoveragePerFile = 0.0
+    minimumCoveragePerFile = 0.6
     filesExcludedFromCoverage = [
+            "**/*MarketplaceApplication.*",
             "**/config/*Configuration.*"
     ]
 }
@@ -41,15 +42,17 @@ dependencies {
     implementation 'org.mapstruct:mapstruct:1.6.2'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-    compileOnly 'org.projectlombok:lombok'
+    compileOnly 'org.projectlombok:lombok:1.18.34'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
     annotationProcessor 'org.projectlombok:lombok'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.boot:spring-boot-testcontainers'
     testImplementation 'org.springframework.security:spring-security-test'
     testImplementation 'org.testcontainers:junit-jupiter'
+    testImplementation 'org.projectlombok:lombok:1.18.34'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.34'
+    testAnnotationProcessor 'org.mapstruct:mapstruct-processor:1.6.2'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
-
-

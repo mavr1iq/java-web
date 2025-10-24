@@ -24,46 +24,43 @@ public class ProductServiceImpl implements ProductService {
 
   @PostConstruct
   public void init() {
-    createProduct(new ProductRequestDTO("Cosmic milk", 80.5, "Milk from space cows"));
-    createProduct(
-        new ProductRequestDTO(
-            "Galaxy mouse on stick", 80.5, "Fake mouse on stick but... from galaxy"));
+    createProduct(Product.builder().name("Cosmic milk").price(80.5).description("Milk from space cows").build());
+    createProduct(Product.builder().name("Galaxy mouse on stick").price(80.5).description("Fake mouse on stick but... from galaxy").build());
   }
 
   @Override
-  public List<ProductDTO> getProducts() {
-    return productMapper.toProductList(products.values().stream().toList());
+  public List<Product> getProducts() {
+    return products.values().stream().toList();
   }
 
   @Override
-  public ProductDTO getProductById(Long id) {
+  public Product getProductById(Long id) {
     if (!products.containsKey(id)) {
       throw new ProductNotFoundException(id);
     }
-    return productMapper.toProductDTO(products.get(id));
+    return products.get(id);
   }
 
   @Override
-  public ProductDTO createProduct(ProductRequestDTO requestDTO) {
-    Product newProduct = productMapper.toProductEntity(requestDTO);
-    newProduct.setId(id.incrementAndGet());
-    products.put(newProduct.getId(), newProduct);
-    return productMapper.toProductDTO(newProduct);
+  public Product createProduct(Product product) {
+    product.setId(id.incrementAndGet());
+    products.put(product.getId(), product);
+    return product;
   }
 
   @Override
-  public ProductDTO updateProduct(Long id, ProductRequestDTO requestDTO) {
-    Product product = products.get(id);
+  public Product updateProduct(Long id, Product product) {
+    Product updateProduct = products.get(id);
     if (!products.containsKey(id)) {
       throw new ProductNotFoundException(id);
     }
 
-    product.setName(requestDTO.getName());
-    product.setPrice(requestDTO.getPrice());
-    product.setDescription(requestDTO.getDescription());
+    updateProduct.setName(product.getName());
+    updateProduct.setPrice(product.getPrice());
+    updateProduct.setDescription(product.getDescription());
 
-    products.put(id, product);
-    return productMapper.toProductDTO(product);
+    products.put(id, updateProduct);
+    return updateProduct;
   }
 
   @Override
