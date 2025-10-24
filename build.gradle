@@ -14,6 +14,14 @@ java {
     }
 }
 
+ext {
+    minimumCoveragePerFile = 0.0
+    filesExcludedFromCoverage = [
+            "**/config/*Configuration.*"
+    ]
+}
+
+
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
@@ -23,6 +31,9 @@ configurations {
 repositories {
     mavenCentral()
 }
+
+apply from: "${rootProject.projectDir}/gradle/test.gradle"
+apply from: "${rootProject.projectDir}/gradle/jacoco.gradle"
 
 dependencies {
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.0'
@@ -35,9 +46,10 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.testcontainers:junit-jupiter'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
-tasks.named('test') {
-    useJUnitPlatform()
-}
+
