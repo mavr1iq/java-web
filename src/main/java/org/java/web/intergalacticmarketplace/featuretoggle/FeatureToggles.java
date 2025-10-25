@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum FeatureToggles {
-    HALLOWEEN_TOGGLE("halloween-toggle");
+    HALLOWEEN_TOGGLE("halloween");
 
     private final String featureName;
 

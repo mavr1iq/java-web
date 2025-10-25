@@ -13,7 +13,7 @@ import java.util.Map;
 @ConfigurationProperties(prefix = "feature")
 public class FeatureToggleProperties {
 
-    Map<String, Boolean> toggles;
+    Map<String,Boolean> toggles;
 
     public boolean check(String featureName) {
         return toggles.getOrDefault(featureName, false);
