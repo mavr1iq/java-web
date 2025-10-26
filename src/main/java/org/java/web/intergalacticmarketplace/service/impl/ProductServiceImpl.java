@@ -3,8 +3,6 @@ package org.java.web.intergalacticmarketplace.service.impl;
 import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import org.java.web.intergalacticmarketplace.domain.Product;
-import org.java.web.intergalacticmarketplace.dto.product.ProductDTO;
-import org.java.web.intergalacticmarketplace.dto.product.ProductRequestDTO;
 import org.java.web.intergalacticmarketplace.exceptions.ProductNotFoundException;
 import org.java.web.intergalacticmarketplace.service.ProductService;
 import org.java.web.intergalacticmarketplace.web.mapper.ProductMapper;
