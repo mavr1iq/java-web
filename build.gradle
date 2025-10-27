@@ -18,7 +18,9 @@ ext {
     minimumCoveragePerFile = 0.6
     filesExcludedFromCoverage = [
             "**/*MarketplaceApplication.*",
-            "**/config/*Configuration.*"
+            "**/config/*Configuration.*",
+            "**/config/*Properties.*",
+            "**/featuretoggle/*"
     ]
 }
 

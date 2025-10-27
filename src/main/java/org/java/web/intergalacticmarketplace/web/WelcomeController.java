@@ -1,6 +1,7 @@
 package org.java.web.intergalacticmarketplace.web;
 
 import lombok.RequiredArgsConstructor;
+import org.java.web.intergalacticmarketplace.config.WelcomeProperties;
 import org.java.web.intergalacticmarketplace.dto.product.ProductDTO;
 import org.java.web.intergalacticmarketplace.featuretoggle.FeatureToggles;
 import org.java.web.intergalacticmarketplace.featuretoggle.annotation.FeatureToggle;
@@ -16,19 +17,22 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/v1/halloween")
+@RequestMapping("/api/v1/welcome")
 @RequiredArgsConstructor
 @Validated
-public class HalloweenController {
-    private final ProductService productService;
-    private final ProductMapper productMapper;
+public class WelcomeController {
+    private final WelcomeProperties welcomeProperties;
 
 
     @GetMapping
-    @FeatureToggle(FeatureToggles.HALLOWEEN_TOGGLE)
-    public ResponseEntity<List<ProductDTO>> getProducts() {
-        return ResponseEntity.ok(productMapper.toProductList(productService.getProducts().stream()
-                .peek(p -> p.setName(String.format("Spooky %s", p.getName())))
-                .collect(Collectors.toList())));
+@FeatureToggle(FeatureToggles.WELCOME_TOGGLE)
+    public ResponseEntity<String> getWelcomed() {
+        String name = getName();
+        return ResponseEntity.ok(String.format("Welcome to %s", name));
+    }
+
+
+    public String getName() {
+        return String.format("Spooky %s", welcomeProperties.getName());
     }
 }

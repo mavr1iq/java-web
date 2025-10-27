@@ -19,7 +19,7 @@ public class FeatureToggleAspect {
     @Around(value = "@annotation(featureToggle)")
     public Object checkToggle(ProceedingJoinPoint joinPoint, FeatureToggle featureToggle) throws Throwable {
         FeatureToggles featureToggles = featureToggle.value();
-
+        System.out.println("test");
         if(featureToggleService.isEnabled(featureToggles.getFeatureName())) {
             return joinPoint.proceed();
         }
