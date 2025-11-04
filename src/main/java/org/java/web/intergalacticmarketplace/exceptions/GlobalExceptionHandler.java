@@ -1,6 +1,7 @@
 package org.java.web.intergalacticmarketplace.exceptions;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.java.web.intergalacticmarketplace.featuretoggle.exception.FeatureToggleDisabledException;
 import org.springframework.http.*;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -45,6 +46,17 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
     problemDetail.setType(URI.create("/errors/product-not-found"));
     problemDetail.setTitle("Product Not Found");
+
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(problemDetail);
+  }
+
+  @ExceptionHandler(FeatureToggleDisabledException.class)
+  public ResponseEntity<ProblemDetail> handleFeatureToggleDisabled(
+          FeatureToggleDisabledException ex, HttpServletRequest request) {
+    ProblemDetail problemDetail =
+            ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
+    problemDetail.setType(URI.create("/errors/feature-toggle-disabled"));
+    problemDetail.setTitle("Feature is disabled");
 
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(problemDetail);
   }

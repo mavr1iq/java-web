@@ -27,7 +27,6 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
