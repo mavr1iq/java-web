@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.java.web.intergalacticmarketplace.dto.product.ProductDTO;
 import org.java.web.intergalacticmarketplace.dto.product.ProductRequestDTO;
 import org.java.web.intergalacticmarketplace.service.ProductService;
+import org.java.web.intergalacticmarketplace.web.mapper.ProductMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -24,13 +25,14 @@ import java.util.List;
 @Tag(name = "Cosmic products manager")
 public class ProductController {
   private final ProductService productService;
+  private final ProductMapper productMapper;
 
   @Operation(summary = "Get list of products", description = "Retrieve all available products")
   @ApiResponses(
       value = {@ApiResponse(responseCode = "200", description = "Retrieved all products")})
   @GetMapping
   public ResponseEntity<List<ProductDTO>> getProducts() {
-    return ResponseEntity.ok(productService.getProducts());
+    return ResponseEntity.ok(productMapper.toProductList(productService.getProducts()));
   }
 
   @Operation(summary = "Get product by id", description = "Retrieve existing product by id")
@@ -42,7 +44,7 @@ public class ProductController {
   @GetMapping("/{id}")
   public ResponseEntity<ProductDTO> getProductById(
       @Parameter(description = "ID of product") @PathVariable Long id) {
-    return ResponseEntity.ok(productService.getProductById(id));
+    return ResponseEntity.ok(productMapper.toProductDTO(productService.getProductById(id)));
   }
 
   @Operation(summary = "Create product", description = "Create a new product for store")
@@ -54,7 +56,7 @@ public class ProductController {
   @PostMapping
   public ResponseEntity<ProductDTO> createProduct(
       @Valid @RequestBody ProductRequestDTO requestDTO) {
-    return new ResponseEntity<>(productService.createProduct(requestDTO), HttpStatus.CREATED);
+    return new ResponseEntity<>(productMapper.toProductDTO(productService.createProduct(productMapper.toProductEntity(requestDTO))), HttpStatus.CREATED);
   }
 
   @Operation(summary = "Update product", description = "Update existing product by id")
@@ -67,7 +69,7 @@ public class ProductController {
   public ResponseEntity<ProductDTO> updateProduct(
       @Parameter(description = "ID of product") @PathVariable Long id,
       @Valid @RequestBody ProductRequestDTO requestDTO) {
-    return ResponseEntity.ok(productService.updateProduct(id, requestDTO));
+    return ResponseEntity.ok(productMapper.toProductDTO(productService.updateProduct(id, productMapper.toProductEntity(requestDTO))));
   }
 
   @Operation(summary = "Delete product", description = "Delete existing product by id")
